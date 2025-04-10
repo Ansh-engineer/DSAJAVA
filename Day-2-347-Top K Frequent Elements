@@ -1,0 +1,53 @@
+Leetcode --> 347 --> Top K Frequent Elements 
+
+//  Approach 1 --> Using PriorityQueue , Maps and OOPS Concept 
+
+// Code Below -->
+
+
+class Solution {
+
+    public class Pair implements Comparable<Pair> {
+        int key;
+        int val;
+
+        Pair(int key, int val) {
+            this.key = key;
+            this.val = val;
+        }
+
+        public int compareTo(Pair p) {
+            return this.val - p.val;
+        }
+
+    }
+
+    public int[] topKFrequent(int[] arr, int k) {
+        int[] ans = new int[k];
+        PriorityQueue<Pair> pq = new PriorityQueue<>();
+        HashMap<Integer, Integer> map = new HashMap<>();
+        for (int el : arr) {
+            map.put(el, map.getOrDefault(el, 0) + 1);
+        }
+
+        for (int ele : map.keySet()) {
+            int val = map.get(ele);
+            pq.add(new Pair(ele, val));
+            if (pq.size() > k)
+                pq.remove();
+        }
+        int j = 0;
+        for (int i = 0; i < k; i++) {
+            Pair p = pq.remove();
+            ans[j++] = p.key;
+        }
+        return ans;
+
+    }
+}
+
+
+// Time Complexity -->  O(n log k) && Space Complexity --> O(n + k)
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
