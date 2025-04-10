@@ -1,0 +1,140 @@
+Leetcode 658 --> Find K Closest Elements 
+
+// Apprach - 1 --> Using Binary Search 
+
+//  Code Below ---->
+
+
+class Solution {
+    public List<Integer> findClosestElements(int[] arr, int k, int x) {
+        List<Integer> ans = new ArrayList<>();
+        int n = arr.length;
+
+         if(k==n){
+            for(int i=0;i<n;i++){
+                ans.add(arr[i]);
+            }
+            return ans;
+         }
+
+         if(x<=arr[0]){
+             for(int i=0;i<k;i++){
+                ans.add(arr[i]);
+            }
+            return ans;
+         }
+
+         if(x>=arr[n-1]){
+            for(int i= n-1;i>= n-k;i--){
+                ans.add(arr[i]);
+            }
+            Collections.sort(ans);
+            return ans;
+         }
+
+         int low = 0;
+         int high = n-1;
+         int lb = n;
+         while(low<=high){
+            int mid = low+(high - low )/2;
+            if(arr[mid]>=x){
+                lb = mid ;
+                high = mid -1;
+            }
+            else low = mid +1;
+         }
+
+         int i = lb-1;
+         int j = lb;
+
+         while(k>0 && i>=0 && j<n){
+            int di = Math.abs(x  -arr[i]);
+            int dj = Math.abs(x - arr[j]);
+            if(di<=dj){
+                ans.add(arr[i]);
+                i--;
+            }else{
+                ans.add(arr[j]);
+                j++;
+            }
+            k--;
+         }
+
+         while(k>0 && i>=0){
+            ans.add(arr[i]);
+            i--;k--;
+         }
+
+         while(k>0 && j<n){
+            ans.add(arr[j]);
+            j++; k--;
+         }
+
+         Collections.sort(ans);
+         return ans;
+    }
+}
+
+
+// TIme Complexity --> O(log n + k log k) && Space Complexity --> 	O(k)
+
+------------------------------------------------------------------------//   This Approach is more efficeint than 2nd Approach   //----------------------------------------------------------------------------------
+
+
+-  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -
+
+
+
+// Approach - 2 --> Using PriorityQueue and OOPS comcept 
+
+// Code Below
+
+
+
+class Solution {
+
+    public class Pair implements Comparable<Pair> {
+        int d;
+        int y;
+
+        Pair(int d, int y) {
+            this.d = d;
+            this.y = y;
+        }
+
+        public int compareTo(Pair p) {
+            if (this.d == p.d)
+                return this.y - p.y;
+            return this.d - p.d;
+        }
+
+    }
+
+    public List<Integer> findClosestElements(int[] arr, int k, int x) {
+        ArrayList<Integer> ans = new ArrayList<>();
+        PriorityQueue<Pair> pq = new PriorityQueue<>(Collections.reverseOrder());
+        for (int el : arr) {
+            int d = Math.abs(x - el);
+            pq.add(new Pair(d, el));
+            if (pq.size() > k) {
+                pq.remove();
+            }
+        }
+
+        while (pq.size() > 0) {
+            Pair p = pq.remove();
+            ans.add(p.y);
+        }
+
+        Collections.sort(ans);
+        return ans;
+
+    }
+}
+
+
+
+// Time Complexity -->  O(n log k + k log k) && Space Complexity --> O(k)
+
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
