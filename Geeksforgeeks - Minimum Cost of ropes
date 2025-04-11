@@ -1,0 +1,77 @@
+geeksforgeeks -->  Minimum Cost of ropes
+
+// Approach - 1 --> using ArrayList and sorting --> Time Limit Exceed occured on Edge Cases
+
+// Code Below --> 
+
+
+class Solution {
+    public static int minCost(int[] arr) {
+        ArrayList<Integer> ans = new ArrayList<>();
+        
+        for(int el : arr){
+            ans.add(el);
+        }
+        
+        int sum =0;
+        
+        while(ans.size()>1){
+            Collections.sort(ans);
+            int first = ans.remove(0);
+            int second = ans.remove(0);
+            int ad = first + second ;
+            ans.add(ad);
+            sum+=ad;
+        }
+        
+        return sum;
+    }
+}
+
+
+// Time Complexity --> 	O(n² log n)  && Space Complexity --> O(n)
+
+
+-  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -
+
+
+
+---------------------------------------------------------------------------   Approach - 2nd is better than Approach - 1st   -----------------------------------------------------------------------------------------
+
+
+
+
+// Approach - 2 --> Using PriorityQueue 
+
+// Code Below --> 
+
+
+class Solution {
+    public static int minCost(int[] arr) {
+        
+        PriorityQueue<Integer> pq = new PriorityQueue<>();
+        
+        for(int el : arr){
+            pq.add(el);
+        }
+        
+        int sum = 0;
+        
+        while(pq.size()>1){
+            int first = pq.remove();
+            int second = pq.remove();
+           int ad = first + second;
+           pq.add(ad);
+            sum+= ad;
+        }
+        
+        return sum;
+        
+    }
+}
+
+
+// Time Complexity --> O(n log n) && Space Complexity --> O(n)
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
