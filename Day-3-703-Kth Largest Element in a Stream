@@ -1,0 +1,33 @@
+Leetcode --> 703  --> Kth Largest Element in a Stream
+
+// Approach - 1 --> Using Priority Queue 
+
+// Code Below -->
+
+
+class KthLargest {
+    PriorityQueue<Integer> pq = new PriorityQueue<>();
+    int k;
+
+    public KthLargest(int k, int[] nums) {
+        this.k = k;
+        for (int el : nums) {
+            pq.add(el);
+        }
+
+    }
+
+    public int add(int val) {
+        pq.add(val);
+        while (pq.size() > k) {
+            pq.remove();
+        }
+        return pq.peek();
+    }
+}
+
+
+// Time Complexity --> O(n log n) && Space Complexity --> O(n) 
+
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
