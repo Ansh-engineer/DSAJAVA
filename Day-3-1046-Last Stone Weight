@@ -1,0 +1,72 @@
+Leetcode --> 1046 --> Last Stone Weight
+
+// Approach 1 --> Using ArrayList and sorting 
+
+// Code Below --->
+
+
+class Solution {
+    public int lastStoneWeight(int[] stones) {
+         ArrayList<Integer> ans = new ArrayList<>();
+         for(int el : stones){
+             ans.add(el);
+         }
+
+         while(ans.size()>1){
+            Collections.sort(ans);
+             int first = ans.remove(ans.size()-1);
+             int second = ans.remove(ans.size()-1);
+             int dif = first - second;
+             if(dif>0) ans.add(dif);
+         }
+
+         if(ans.size()==0) return 0;
+          return ans.remove(ans.size()-1);
+    }
+}
+
+
+// Time Complexity -->  O(n² log n) && Space Complexity--> O(n)
+
+
+-  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -
+
+
+
+-------------------------------------------------------------------------------   Approach - 2nd is Better than Appraoch - 1st   --------------------------------------------------------------------------------------   
+
+
+
+// Approach 2 --> Using PriorityQueue Only
+
+// Code Below --> 
+
+
+class Solution {
+    public int lastStoneWeight(int[] stones) {
+        PriorityQueue<Integer> pq = new PriorityQueue<>(Collections.reverseOrder());
+        for (int ele : stones) {
+            pq.add(ele);
+        }
+
+        while (pq.size() > 1) {
+            int first = pq.remove();
+            int second = pq.remove();
+            int diff = first - second;
+            if (diff > 0)
+                pq.add(diff);
+        }
+
+        if (pq.isEmpty()) {
+            return 0;
+        } else {
+            return pq.remove();
+        }
+    }
+}
+
+
+// Time Complexity --> O(n log n) && Space complexity --> O(n)
+
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
