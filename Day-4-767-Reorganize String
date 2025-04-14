@@ -1,0 +1,67 @@
+Leetcode --> 767 --> Reorganize String
+
+// Approach --> 1 -->  Using PriorityQueue (max heap) && HashMap
+
+// Code Below -->
+
+class Solution {
+
+    public class Pair implements Comparable<Pair> {
+        char ch;
+        int val;
+
+        Pair(char ch, int val) {
+            this.ch = ch;
+            this.val = val;
+        }
+
+        public int compareTo(Pair p) {
+            return this.val - p.val;
+        }
+    }
+
+    public String reorganizeString(String s) {
+        Map<Character, Integer> map = new HashMap<>();
+        PriorityQueue<Pair> pq = new PriorityQueue<>(Collections.reverseOrder());
+
+        for (char c : s.toCharArray()) {
+            int count = map.getOrDefault(c, 0) + 1;
+            if (count > (s.length() + 1) / 2)
+                return "";
+            map.put(c, count);
+        }
+
+        for (char c : map.keySet()) {
+            int val = map.get(c);
+            pq.add(new Pair(c, val));
+        }
+
+        StringBuilder sb = new StringBuilder();
+
+        while (pq.size() >= 2) {
+            Pair p1 = pq.remove();
+            Pair p2 = pq.remove();
+            sb.append(p1.ch);
+            sb.append(p2.ch);
+            p1.val--;
+            p2.val--;
+            if (p1.val > 0)
+                pq.add(new Pair(p1.ch, p1.val));
+            if (p2.val > 0)
+                pq.add(new Pair(p2.ch, p2.val));
+        }
+
+        if (!pq.isEmpty()) {
+            Pair p3 = pq.remove();
+            sb.append(p3.ch);
+        }
+
+        return sb.toString();
+    }
+}
+
+
+// Time Complexity --> O(n log k) && Space Complexity --> 	O(k)
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
