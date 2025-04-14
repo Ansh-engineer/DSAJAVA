@@ -1,0 +1,53 @@
+// Leetcode --> 451 --> Sort Characters By Frequency
+
+//  Approach -1 --> Using PriorityQueue (max heap) && HashMap 
+
+// Code Below -->
+
+
+class Solution {
+
+    public class Pair implements Comparable<Pair> {
+        char ch;
+        int val;
+
+        Pair(char ch, int val) {
+            this.ch = ch;
+            this.val = val;
+        }
+
+        public int compareTo(Pair p) {
+            return this.val - p.val;
+        }
+    }
+
+    public String frequencySort(String s) {
+        Map<Character, Integer> map = new HashMap<>();
+        PriorityQueue<Pair> pq = new PriorityQueue<>(Collections.reverseOrder());
+        StringBuilder sb = new StringBuilder();
+
+        for (char c : s.toCharArray()) {
+            map.put(c, map.getOrDefault(c, 0) + 1);
+        }
+
+        for (char c : map.keySet()) {
+            int val = map.get(c);
+            pq.add(new Pair(c, val));
+        }
+
+        while (!pq.isEmpty()) {
+            Pair p = pq.remove();
+            for (int i = 0; i < p.val; i++) {
+                sb.append(p.ch);
+            }
+        }
+
+        return sb.toString();
+    }
+}
+
+
+// Time Complexity --> 	O(n log k) && Space Complexity --> O(n) 
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
