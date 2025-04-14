@@ -1,0 +1,62 @@
+// Leetcode --> 373 --> Find K Pairs with Smallest Sums
+
+// Approach --> 1 --> using two pointer and maxheap (PriorityQueue)
+
+// Code Below --> 
+
+
+class Solution {
+
+ public class Triplet implements Comparable<Triplet> {
+        int s;
+        int x;
+        int y;
+
+        Triplet(int s, int x, int y) {
+            this.s = s;
+            this.x = x;
+            this.y = y;
+        }
+
+        public int compareTo(Triplet t) {
+            return this.s - t.s;
+        }
+    }
+
+    public List<List<Integer>> kSmallestPairs(int[] nums1, int[] nums2, int k) {
+        List<List<Integer>> ans = new ArrayList<>();
+
+    PriorityQueue<Triplet> pq = new PriorityQueue<>(Collections.reverseOrder());
+
+          for(int i=0;i<nums1.length;i++){
+            for(int j=0;j<nums2.length;j++){
+                int sum = nums1[i] + nums2[j];
+                if(pq.size()<k){
+                    pq.add(new Triplet(sum, nums1[i],nums2[j]));
+                }else if(sum < pq.peek().s){
+                      pq.remove();
+                     pq.add(new Triplet(sum, nums1[i], nums2[j]));
+                }else{
+                     break;
+                }
+            }
+          }
+             
+         while(pq.size()>0){
+            List<Integer> a = new ArrayList<>();
+            Triplet t = pq.remove();
+            a.add(t.x);
+            a.add(t.y);
+            ans.add(a);
+         }
+        
+        return ans;
+
+    }
+}
+
+
+// Time Complexity --> O(n * m * log k) && Space Complexity --> O(k) 
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
