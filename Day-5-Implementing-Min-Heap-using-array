@@ -46,6 +46,35 @@ class Minheap{
       }
 }
 
+
+  public int remove() throws Exception {
+    if (size == 0)
+      throw new Exception("Heap is empty");
+    int peek = arr[0];
+    swap(0, size - 1);
+    size--;
+    downheapify(0);
+    return peek;
+  }
+
+  public void downheapify(int parent) {
+    if (parent >= size - 1)
+      return;
+    int lc = 2 * parent + 1, rc = 2 * parent + 2;
+    int minindex = parent;
+    if (lc < size && arr[lc] < arr[minindex])
+      minindex = lc;
+    if (rc < size && arr[rc] < arr[minindex])
+      minindex = rc;
+    if (parent == minindex)
+      return;
+    swap(parent, minindex);
+    downheapify(minindex);
+
+  }
+
+}
+
 public class implementind_min_heap_array  {
     public static void main(String[] args) throws Exception {
 
