@@ -1,0 +1,44 @@
+// GeekforGeeks --> Is Binary Tree Heap
+
+// Apprach -1 --> By checking the property of heap and Completer Binray Tree
+
+// Code Below --> 
+
+
+lass Solution {
+    boolean isHeap(Node root) {
+        if(root==null) return true;
+        int n = size(root);
+        return Heap(root) && isCbt(root,0,n);
+    }
+    
+    public int size(Node root){
+        if(root==null) return 0;
+        return 1+ size(root.left) + size(root.right);
+    }
+    
+    public boolean Heap(Node root){
+        if(root==null) return true;
+        
+        if(root.left!=null){
+            if(root.data<=root.left.data) return false;
+        }
+        
+        if(root.right!=null){
+            if(root.data<=root.right.data) return false;
+        }
+        return Heap(root.left) && Heap(root.right);
+    }
+    
+    public boolean isCbt(Node root,int i,Integer n){
+        if(root==null) return true;
+        if(i>=n) return false;
+        return isCbt(root.left,2*i+1,n) && isCbt(root.right,2*i+2,n);
+    }
+}
+
+
+// Time Complexity --> O(n) && Space Complexity --> O(n)
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
