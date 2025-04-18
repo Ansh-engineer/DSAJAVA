@@ -1,0 +1,36 @@
+// GeekforGeeks BST to max heap
+
+// Code Below --> 
+
+
+class Solution
+{
+    
+    static ArrayList<Integer> ans ;
+    static int i;
+    
+    public static void convertToMaxHeapUtil(Node root)
+    {
+        ans = new ArrayList<>();
+        inorder(root,ans);
+        i=0;
+        postorder(root,ans);
+    }
+    
+    public static void postorder(Node root, ArrayList<Integer> ans ){
+         if(root==null) return;
+         postorder(root.left,ans);
+         postorder(root.right,ans);
+         root.data = ans.get(i++);
+    }
+    
+    public static void inorder(Node root, ArrayList<Integer> ans){
+        if(root==null) return;
+        inorder(root.left,ans);
+        ans.add(root.data);
+        inorder(root.right,ans);
+    }
+}
+
+
+// Time Complexity --> O(n) && Space Complxity --> O(n)
