@@ -1,0 +1,63 @@
+Leetcode --> 632 --> Smallest Range Covering Elements from K Lists
+
+// Approach - 1 --> Using PriorityQueue (Minheap)
+
+// Code Below --> 
+
+
+
+class Solution {
+
+    public class Triplet implements Comparable<Triplet> {
+        int a;
+        int b;
+        int c;
+
+        Triplet(int a, int b, int c) {
+            this.a = a;
+            this.b = b;
+            this.c = c;
+        }
+
+        public int compareTo(Triplet t) {
+            return this.a - t.a;
+        }
+    }
+
+    public int[] smallestRange(List<List<Integer>> nums) {
+        int[] ans = { 0, Integer.MAX_VALUE };
+        PriorityQueue<Triplet> pq = new PriorityQueue<>();
+        int k = nums.size();
+        int maxi = Integer.MIN_VALUE;
+        for (int i = 0; i < k; i++) {
+            int ele = nums.get(i).get(0);
+            pq.add(new Triplet(ele, i, 0));
+           maxi = Math.max(ele, maxi);
+        }
+
+        while (true) {
+            Triplet top = pq.remove();
+            int ele = top.a, row = top.b, col = top.c;
+            if (maxi - ele < ans[1] - ans[0]) {
+                ans[0] = ele;
+                ans[1] = maxi;
+            }
+
+            if (col == nums.get(row).size() - 1)
+                break;
+            int next = nums.get(row).get(col + 1);
+            maxi = Math.max(maxi, next);
+            pq.add(new Triplet (next, row, col + 1));
+        }
+
+        return ans;
+
+    }
+}
+
+
+// Time Complexity --> O(n * k * log k) && Space Complexity --> 	O(k)
+
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
