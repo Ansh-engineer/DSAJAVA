@@ -33,9 +33,54 @@ class MedianFinder {
 -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  
 
 
+-----------------------------------------------------   Appraoch - 2nd is better than Approach -1st   ---------------------------------------------------------------
+
+
+// Approach - 2 --> using PriorityQueue (MinHeap && MaxHeap)
+
+// Code Below -->
+
+
+class MedianFinder {
+
+     PriorityQueue<Integer> maxheap = new PriorityQueue<>(Collections.reverseOrder());
+        PriorityQueue<Integer> minheap = new PriorityQueue<>();
+
+    public MedianFinder() {
+       
+    }
+    
+    public void addNum(int num) {
+         if(maxheap.size()==0) maxheap.add(num);
+         else{
+            if(num<maxheap.peek()) maxheap.add(num);
+            else minheap.add(num);
+         }
+
+         if(maxheap.size()>minheap.size()+1){
+            int peek = maxheap.remove();
+            minheap.add(peek);
+         }
+         if(minheap.size()>maxheap.size()+1){
+            int peek = minheap.remove();
+            maxheap.add(peek);
+         }
+    }
+    
+    public double findMedian() {
+        if(maxheap.size()==minheap.size()) return (maxheap.peek()+ minheap.peek())/2.0;
+        else if(maxheap.size()>minheap.size()) return maxheap.peek();
+        else return minheap.peek();
+    }
+}
 
 
 
+// Time Complexity --> 	On(log n) && Space Complexity --> O(n)
+
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
 
