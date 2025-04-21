@@ -1,6 +1,6 @@
 // Leetcode --> 1480 --> Running Sum of 1d Array
 
-// Approach --> 1 --> using Prefix Sum;
+// Approach --> 1 --> using Prefix Sum (Using an Extra Array)
 
 // Code Below --> 
 
@@ -21,6 +21,33 @@ class Solution {
 
 
 // Time Compexity --> O(n) && Space Complexity --> 	O(n)
+
+
+-    -    -    -    -    -    -    -    -    -    -    -    -    -    -    -    -    -    -    -    -    -    -    -    -    -    -    -    -    -    -    -    -    -
+
+
+
+-------------------------------------------------------    Approach 2nd is Better than Approach 1st    ----------------------------------------------------------------
+
+
+
+// Apprach --> 2nd --> Using Prefix Sum (No extra Array)
+
+// Code Below
+
+
+class Solution {
+    public int[] runningSum(int[] nums) {
+        for(int i=1;i<nums.length;i++){
+            nums[i] = nums[i] + nums[i-1];
+        }
+        return nums;
+    }
+}
+
+
+// Time Compexity --> O(n) && Space Complexity --> 	O(1)
+
 
 
 
