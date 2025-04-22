@@ -1,0 +1,41 @@
+// Leetcode --> 2389 --> Longest Subsequence With Limited Sum
+
+// Approach --> 1 --> Using Built - in - sort && Prefix && Binary Search
+
+// Code Below --> 
+
+
+
+class Solution {
+    public int[] answerQueries(int[] nums, int[] queries) {
+        Arrays.sort(nums);
+
+        int n = queries.length;
+        int[] ans = new int[n];
+
+        for (int i = 1; i < nums.length; i++) {
+            nums[i] += nums[i - 1];
+        }
+
+        for (int i = 0; i < n; i++) {
+            int low = 0, high = nums.length - 1;
+            while (low <= high) {
+                int mid = (low + high) / 2;
+                if (nums[mid] > queries[i]) {
+                    high = mid - 1;
+                } else {
+                    ans[i] = Math.max(ans[i], mid + 1);
+                    low = mid + 1;
+                }
+            }
+        }
+        return ans;
+    }
+}
+
+
+// Time Complexity --> O(n log n + m log n) && Space Complexity --> O(log n)
+
+
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
