@@ -1,0 +1,41 @@
+// Leetcode --> 1343 --> Number of Sub-arrays of Size K and Average Greater than or Equal to Threshold
+
+// Approach --> 1st --> Using sliding window 
+
+// Code Below --> 
+
+
+class Solution {
+    public int numOfSubarrays(int[] arr, int k, int t) {
+        int cnt = 0;
+        int i = 0, j = k-1;
+        int n = arr.length;
+        int sum = 0;
+        for (int a = 0; a <=j; a++) {
+            sum += arr[a];
+        }
+
+        i++;
+        j++;
+
+        if (sum / k >= t) {
+            cnt++;
+        }
+
+        while (j < n) {
+            sum = sum - arr[i - 1] + arr[j];
+            if (sum / k >= t) {
+                cnt++;
+            }
+            i++;
+            j++;
+        }
+        return cnt;
+    }
+}
+
+
+// Time Complexity --> O(n) && Space Complexity --> O(1)
+
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
