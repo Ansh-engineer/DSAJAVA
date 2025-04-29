@@ -1,0 +1,40 @@
+// Leetcode --> 904 --> Fruit Into Baskets
+
+// Approach --> 1st --> Using Sliding Window
+
+// Code Below --> 
+
+
+class Solution {
+    public int totalFruit(int[] arr) {
+        int n = arr.length;
+        int i = 0, j = 0;
+        int maxi = 0;
+
+        HashMap<Integer, Integer> map = new HashMap<>();
+
+        while (j < n) {
+            int ele = arr[j];
+            map.put(ele, map.getOrDefault(ele, 0) + 1);
+            while (map.size() > 2) {
+                int el = arr[i];
+                if (map.get(el) == 1)
+                    map.remove(el);
+                else
+                    map.put(el, map.getOrDefault(el, 0) - 1);
+                i++;
+            }
+            int len = j - i + 1;
+            maxi = Math.max(maxi, len);
+            j++;
+        }
+        return maxi;
+    }
+}
+
+
+
+// Time Complexity --> O(n) && Space Complexity --> O(1)
+
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
