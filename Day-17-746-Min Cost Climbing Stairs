@@ -1,0 +1,87 @@
+// Leetcode --> 746 --> Min Cost Climbing Stairs
+
+// Approach --> 1st --> Using Recursion --> Led to Time Limit Exceed
+
+// Code Below -->
+
+
+class Solution {
+
+    public int mincost(int[] cost, int i) {
+        if (i == 0 || i == 1)
+            return cost[i];
+        return cost[i] + Math.min(mincost(cost, i - 1), mincost(cost, i - 2));
+    }
+
+    public int minCostClimbingStairs(int[] cost) {
+        int n = cost.length;
+        return Math.min(mincost(cost, n - 1), mincost(cost, n - 2));
+    }
+}
+
+
+// Tiem Complexity --> O(2ⁿ) && Space Complexity --> O(n)
+
+
+
+-  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -
+
+
+
+// Approach --> 2nd --> (Dynamic Programming) Using recursion && Memoization
+
+// Code Below -->
+
+
+
+class Solution {
+
+    static int[] dp;
+
+    public int mincost(int[] cost, int i) {
+        if (i == 0 || i == 1)
+            return cost[i];
+        if (dp[i] != -1)
+            return dp[i];
+        int ans = cost[i] + Math.min(mincost(cost, i - 1), mincost(cost, i - 2));
+        dp[i] = ans;
+        return ans;
+    }
+
+    public int minCostClimbingStairs(int[] cost) {
+        int n = cost.length;
+        dp = new int[n];
+        Arrays.fill(dp, -1);
+        return Math.min(mincost(cost, n - 1), mincost(cost, n - 2));
+    }
+}
+
+
+// Time Complexity --> O(n) && Space Complexity --> O(n)
+
+
+
+// Approach -- 3rd --> (Dynamic Programming) Using Tabulation 
+
+// Code Below -->
+
+
+class Solution {
+    public int minCostClimbingStairs(int[] cost) {
+        int n = cost.length;
+        int [] dp = new int [n];
+        dp[0] = cost[0];
+        dp[1] = cost[1];
+        for(int i=2;i<n;i++){
+            dp[i] = cost[i] + Math.min(dp[i-1],dp[i-2]);
+        }
+        return Math.min(dp[n-1],dp[n-2]);
+    }
+}
+
+
+// Time Complexity --> O(n) && Space Complexity --> O(n);
+
+
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
