@@ -1,0 +1,42 @@
+// Leetcode --> 198 --> House Robber
+
+// Approach --> 1st Dynammic Programming (Memoization)
+
+// Code Below -->
+
+
+class Solution {
+
+    static int[] dp;
+
+    public int robb(int[] arr, int i) {
+        if (i >= arr.length)
+            return 0;
+        if (dp[i] != -1)
+            return dp[i];
+        int take = arr[i] + robb(arr, i + 2);
+        int skip = robb(arr, i + 1);
+        return dp[i] = Math.max(take, skip);
+    }
+
+    public int rob(int[] nums) {
+        dp = new int[nums.length];
+        Arrays.fill(dp, -1);
+        return robb(nums, 0);
+    }
+}
+
+
+// Time Complexity --> O(n) && Space Complexity --> O(n);
+
+
+
+-  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -    -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -
+
+
+
+// Approach 2nd --> Using Dynamic Programming (Tabulation)
+
+// Code Below -->
+
+
