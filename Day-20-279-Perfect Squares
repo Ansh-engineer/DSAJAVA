@@ -1,0 +1,77 @@
+// Leetcode --> 279 --> Perfect Squares
+
+// Approach --> 1st --> Using Dynamic Programming (Memoization)  --> Time Limit Exceed
+
+// Code Below --> 
+
+
+
+class Solution {
+
+    static int[] dp;
+
+    public boolean isPerfect(int n) {
+        int sqrt = (int) Math.sqrt(n);
+        return sqrt * sqrt == n;
+    }
+
+    public int square(int n) {
+        if (isPerfect(n))
+            return 1;
+        if (dp[n] != -1)
+            return dp[n];
+        int min = Integer.MAX_VALUE;
+        for (int i = 1; i <= n / 2; i++) {
+            int cnt = square(i) + square(n - i);
+            min = Math.min(min, cnt);
+        }
+        return dp[n] = min;
+    }
+
+    public int numSquares(int n) {
+        dp = new int[n + 1];
+        Arrays.fill(dp, -1);
+        return square(n);
+
+    }
+}
+
+
+// Time Complexity --> O(n²) && Space Complexity --> O(n)
+
+
+
+-  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -
+
+
+
+-----------------------------------------------------------------------------------------  Approach 2nd is better than Approach 1st  ------------------------------------------------------------------------------------
+
+
+
+// Approach --> 2nd --> Using Dynamic Programming (Tabulation)
+
+// Code Below --> 
+
+
+
+class Solution {
+    public int numSquares(int n) {
+        int[] dp = new int[n + 1];
+        for (int i = 1; i <= n; i++) {
+            int min = Integer.MAX_VALUE;
+            for (int j = 1; j * j <= i; j++) {
+                min = Math.min(min, dp[i - j * j]);
+            }
+            dp[i] = min + 1;
+        }
+        return dp[n];
+    }
+}
+
+
+// Time Complexity --> O(n * √n) && Space Complexity --> O(n)
+
+
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
