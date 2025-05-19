@@ -1,0 +1,49 @@
+// Leetcode --> 416 --> Partition Equal Subset Sum
+
+// Approach --> 1st --> Using Dynammic Programming (Memoization)
+
+// Code Below --> 
+
+
+class Solution {
+
+    static Boolean[][] dp;
+
+    public boolean ansh(int i, int sum, int[] arr, int target) {
+        if (i == arr.length) {
+            return sum == target;
+        }
+
+        if (dp[i][sum] != null)
+            return dp[i][sum];
+
+        boolean skip = ansh(i + 1, sum, arr, target);
+        boolean take = false;
+        if (sum + arr[i] <= target) {
+            take = ansh(i + 1, sum + arr[i], arr, target);
+        }
+        return dp[i][sum] = take || skip;
+
+    }
+
+    public boolean canPartition(int[] arr) {
+        int n = arr.length;
+        int sum = 0;
+        for (int el : arr) {
+            sum += el;
+        }
+        if (sum % 2 != 0)
+            return false;
+
+        int target = sum / 2;
+        dp = new Boolean[n][target + 1];
+        return (ansh(0, 0, arr, target));
+
+    }
+}
+
+
+// Time Complexity --> O(n * target) && Space Complexity --> O(n)
+
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
